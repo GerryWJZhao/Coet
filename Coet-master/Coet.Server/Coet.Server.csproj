@@ -8,9 +8,16 @@
     <EmbeddedResource Include="**\*.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppConfig.json" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.2" />
     <PackageReference Include="Grpc" Version="1.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.0" />
     <PackageReference Include="Microsoft.NETCore.App" Version="1.1.0" />
     <PackageReference Include="MySql.Data" Version="7.0.6-IR31" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
   </ItemGroup>
 </Project>

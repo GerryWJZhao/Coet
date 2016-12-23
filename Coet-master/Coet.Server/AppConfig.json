@@ -1,0 +1,5 @@
+{
+  "AppConfig": {
+    "MySqlConnetString": "server=192.168.1.109;user=CoetServer;database=CoetServer;port=3306;password=Foxconn1@#;SslMode=None"
+  }
+}
