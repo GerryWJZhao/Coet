@@ -11,6 +11,7 @@ namespace Coet.Server.Persistent
                               `Type` varchar(20) DEFAULT NULL,
                               `JsonInfo` longtext,
                               `SendIP` varchar(64) DEFAULT NULL,
+                              `SendName` varchar(64) DEFAULT NULL,
                               `Createdt` datetime DEFAULT NULL,
                               PRIMARY KEY (`Id`),
                               KEY `index_Tpye` (`Type`),
@@ -23,6 +24,14 @@ namespace Coet.Server.Persistent
             get
             {
                 return string.Format(logTDefine, DateTime.Now.ToString("yyyyMM"));
+            }
+        }
+
+        public static string CurrentLogTName
+        {
+            get
+            {
+                return string.Format("Log_{0}", DateTime.Now.ToString("yyyyMM"));
             }
         }
     }
