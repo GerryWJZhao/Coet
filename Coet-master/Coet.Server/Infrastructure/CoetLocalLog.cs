@@ -78,11 +78,13 @@ namespace Coet.Server.Infrastructure
                             {
                                 logInfo l = logQueue.Dequeue();
 
-                                string logStr = string.Format("{0} {1} {2}", l.Time.ToString(), l.Type, l.Msg);
-
-                                StreamWriter sr = new StreamWriter(fs);
-                                await sr.WriteLineAsync(logStr);
-                                sr.Dispose();
+                                if (l != null)
+                                {
+                                    string logStr = string.Format("{0} {1} {2}", l.Time.ToString(), l.Type, l.Msg);
+                                    StreamWriter sr = new StreamWriter(fs);
+                                    await sr.WriteLineAsync(logStr);
+                                    sr.Dispose();
+                                }
                             }
 
                             fs.Dispose();

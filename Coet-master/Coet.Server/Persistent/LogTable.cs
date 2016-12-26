@@ -6,7 +6,7 @@ namespace Coet.Server.Persistent
 {
     public class LogTable
     {
-        const string logTDefine = @"CREATE TABLE `Log_{0}` (
+        const string logTDefine = @"CREATE TABLE `{0}` (
                               `Id` int(64) NOT NULL AUTO_INCREMENT,
                               `Type` varchar(20) DEFAULT NULL,
                               `JsonInfo` longtext,
@@ -19,20 +19,29 @@ namespace Coet.Server.Persistent
                               KEY `index_SendIP` (`SendIP`)
                             ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;";
 
-        public static string CurrentLogTDefine
-        {
-            get
-            {
-                return string.Format(logTDefine, DateTime.Now.ToString("yyyyMM"));
-            }
-        }
-
-        public static string CurrentLogTName
+        private static string CurrentLogTName
         {
             get
             {
                 return string.Format("Log_{0}", DateTime.Now.ToString("yyyyMM"));
             }
+        }
+
+        public static string GetCurrentLogTName()
+        {
+            string tableName = CurrentLogTName;
+
+            string sql = string.Format(@"select TABLE_NAME from INFORMATION_SCHEMA.TABLES where 
+                                         TABLE_SCHEMA = 'CoetServer' and TABLE_NAME = '{0}';", tableName);
+
+            List<string> rlist = DBOperate.ExecuteDataList<string>(sql, new object());
+
+            if (rlist.Count < 0)
+            {
+                DBOperate.ExecuteNonQuery(string.Format(logTDefine, tableName), new object());
+            }
+
+            return tableName;
         }
     }
 }

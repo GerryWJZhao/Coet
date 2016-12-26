@@ -1,0 +1,1 @@
+protoc.exe --csharp_out ProtoClass --grpc_out ProtoClass CoteServer.proto --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe
