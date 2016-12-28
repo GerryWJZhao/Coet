@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Coet.Server.MethodHandlers
 {
-    public class CoetLogInfo
+    public class CoetLogInfoEntity
     {
         public string Type { get; set; }
         public string JsonInfo { get; set; }

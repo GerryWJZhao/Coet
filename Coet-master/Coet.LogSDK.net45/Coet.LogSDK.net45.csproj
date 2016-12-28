@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DBB5235B-81A9-4FA6-B840-71510D6AEF84}</ProjectGuid>
+    <ProjectGuid>{620229D4-E214-4FCE-BAE0-2DDD223FDC47}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Cote.GrpcProto.net45</RootNamespace>
-    <AssemblyName>Cote.GrpcProto.net45</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Coet.LogSDK.net45</RootNamespace>
+    <AssemblyName>Coet.LogSDK.net45</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,9 +37,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.Protobuf, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Protobuf.3.0.0\lib\net45\Google.Protobuf.dll</HintPath>
-    </Reference>
     <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
       <HintPath>..\packages\Grpc.Core.1.0.1\lib\net45\Grpc.Core.dll</HintPath>
     </Reference>
@@ -57,11 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Cote.GrpcProto.netcore\CoteServer.cs">
-      <Link>CoteServer.cs</Link>
-    </Compile>
-    <Compile Include="..\Cote.GrpcProto.netcore\CoteServerGrpc.cs">
-      <Link>CoteServerGrpc.cs</Link>
+    <Compile Include="..\Coet.LogSDK.netcore\CoetLog.cs">
+      <Link>CoetLog.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

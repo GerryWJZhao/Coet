@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Coet.AnalyseSDK
+namespace Coet.LogSDK
 {
-    class CoetAnalyse
+    public class CoetLog
     {
+
     }
 }
