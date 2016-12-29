@@ -35,11 +35,15 @@ option objc_class_prefix = "HLW";
 package Cote.GrpcProto;
 
 service CoetLog {
-  rpc SaveLog (CoetLogInfo) returns (SaveCoteLogResult) {}
+  rpc SaveLog (SaveCoteLogParm) returns (SaveCoteLogResult) {}
 }
 
 service CoetAnalyse {
   rpc GetLog (CoetLogSearchParm) returns (CoetLogSearchResult) {}
+}
+
+message SaveCoteLogParm {
+	repeated CoetLogInfo CoetLogInfos = 1;
 }
 
 message SaveCoteLogResult {

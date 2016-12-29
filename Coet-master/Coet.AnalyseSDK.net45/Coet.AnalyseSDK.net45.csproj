@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{620229D4-E214-4FCE-BAE0-2DDD223FDC47}</ProjectGuid>
+    <ProjectGuid>{7DB51C5C-EBDF-4237-BF18-3A95E5945C19}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Coet.LogSDK.net45</RootNamespace>
-    <AssemblyName>Coet.LogSDK.net45</AssemblyName>
+    <RootNamespace>Coet.AnalyseSDK.net45</RootNamespace>
+    <AssemblyName>Coet.AnalyseSDK.net45</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -56,8 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Coet.LogSDK.netcore\CoetLog.cs">
-      <Link>CoetLog.cs</Link>
+    <Compile Include="..\Coet.AnalyseSDK.netcore\CoetAnalyse.cs">
+      <Link>CoetAnalyse.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

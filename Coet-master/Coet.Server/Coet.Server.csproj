@@ -18,6 +18,6 @@
     <PackageReference Include="MySql.Data" Version="7.0.6-IR31" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cote.GrpcProto.netcore\Cote.GrpcProto.netcore.csproj" />
+    <ProjectReference Include="..\Cote.GrpcProto.netcore\Coet.GrpcProto.netcore.csproj" />
   </ItemGroup>
 </Project>

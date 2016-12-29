@@ -42,14 +42,14 @@ namespace Cote.GrpcProto {
   {
     static readonly string __ServiceName = "Cote.GrpcProto.CoetLog";
 
-    static readonly Marshaller<global::Cote.GrpcProto.CoetLogInfo> __Marshaller_CoetLogInfo = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Cote.GrpcProto.CoetLogInfo.Parser.ParseFrom);
+    static readonly Marshaller<global::Cote.GrpcProto.SaveCoteLogParm> __Marshaller_SaveCoteLogParm = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Cote.GrpcProto.SaveCoteLogParm.Parser.ParseFrom);
     static readonly Marshaller<global::Cote.GrpcProto.SaveCoteLogResult> __Marshaller_SaveCoteLogResult = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Cote.GrpcProto.SaveCoteLogResult.Parser.ParseFrom);
 
-    static readonly Method<global::Cote.GrpcProto.CoetLogInfo, global::Cote.GrpcProto.SaveCoteLogResult> __Method_SaveLog = new Method<global::Cote.GrpcProto.CoetLogInfo, global::Cote.GrpcProto.SaveCoteLogResult>(
+    static readonly Method<global::Cote.GrpcProto.SaveCoteLogParm, global::Cote.GrpcProto.SaveCoteLogResult> __Method_SaveLog = new Method<global::Cote.GrpcProto.SaveCoteLogParm, global::Cote.GrpcProto.SaveCoteLogResult>(
         MethodType.Unary,
         __ServiceName,
         "SaveLog",
-        __Marshaller_CoetLogInfo,
+        __Marshaller_SaveCoteLogParm,
         __Marshaller_SaveCoteLogResult);
 
     /// <summary>Service descriptor</summary>
@@ -61,7 +61,7 @@ namespace Cote.GrpcProto {
     /// <summary>Base class for server-side implementations of CoetLog</summary>
     public abstract class CoetLogBase
     {
-      public virtual global::System.Threading.Tasks.Task<global::Cote.GrpcProto.SaveCoteLogResult> SaveLog(global::Cote.GrpcProto.CoetLogInfo request, ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Cote.GrpcProto.SaveCoteLogResult> SaveLog(global::Cote.GrpcProto.SaveCoteLogParm request, ServerCallContext context)
       {
         throw new RpcException(new Status(StatusCode.Unimplemented, ""));
       }
@@ -91,19 +91,19 @@ namespace Cote.GrpcProto {
       {
       }
 
-      public virtual global::Cote.GrpcProto.SaveCoteLogResult SaveLog(global::Cote.GrpcProto.CoetLogInfo request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual global::Cote.GrpcProto.SaveCoteLogResult SaveLog(global::Cote.GrpcProto.SaveCoteLogParm request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
         return SaveLog(request, new CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::Cote.GrpcProto.SaveCoteLogResult SaveLog(global::Cote.GrpcProto.CoetLogInfo request, CallOptions options)
+      public virtual global::Cote.GrpcProto.SaveCoteLogResult SaveLog(global::Cote.GrpcProto.SaveCoteLogParm request, CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_SaveLog, null, options, request);
       }
-      public virtual AsyncUnaryCall<global::Cote.GrpcProto.SaveCoteLogResult> SaveLogAsync(global::Cote.GrpcProto.CoetLogInfo request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual AsyncUnaryCall<global::Cote.GrpcProto.SaveCoteLogResult> SaveLogAsync(global::Cote.GrpcProto.SaveCoteLogParm request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
         return SaveLogAsync(request, new CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual AsyncUnaryCall<global::Cote.GrpcProto.SaveCoteLogResult> SaveLogAsync(global::Cote.GrpcProto.CoetLogInfo request, CallOptions options)
+      public virtual AsyncUnaryCall<global::Cote.GrpcProto.SaveCoteLogResult> SaveLogAsync(global::Cote.GrpcProto.SaveCoteLogParm request, CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_SaveLog, null, options, request);
       }

@@ -22,21 +22,23 @@ namespace Cote.GrpcProto {
     static CoteServerReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBDb3RlU2VydmVyLnByb3RvEg5Db3RlLkdycGNQcm90byIpChFTYXZlQ290",
-            "ZUxvZ1Jlc3VsdBIUCgxFeGVjdXRlQ291bnQYASABKAUiSAoTQ29ldExvZ1Nl",
-            "YXJjaFJlc3VsdBIxCgxDb2V0TG9nSW5mb3MYASADKAsyGy5Db3RlLkdycGNQ",
-            "cm90by5Db2V0TG9nSW5mbyJPCgtDb2V0TG9nSW5mbxIMCgRUeXBlGAEgASgJ",
-            "EhAKCEpzb25JbmZvGAIgASgJEg4KBlNlbmRJUBgDIAEoCRIQCghTZW5kTmFt",
-            "ZRgEIAEoCSI/ChFDb2V0TG9nU2VhcmNoUGFybRIVCg1TdGFydERhdGVUaW1l",
-            "GAEgASgJEhMKC0VuZERhdGVUaW1lGAIgASgJMlYKB0NvZXRMb2cSSwoHU2F2",
-            "ZUxvZxIbLkNvdGUuR3JwY1Byb3RvLkNvZXRMb2dJbmZvGiEuQ290ZS5HcnBj",
-            "UHJvdG8uU2F2ZUNvdGVMb2dSZXN1bHQiADJhCgtDb2V0QW5hbHlzZRJSCgZH",
-            "ZXRMb2cSIS5Db3RlLkdycGNQcm90by5Db2V0TG9nU2VhcmNoUGFybRojLkNv",
-            "dGUuR3JwY1Byb3RvLkNvZXRMb2dTZWFyY2hSZXN1bHQiAEIIUAGiAgNITFdi",
-            "BnByb3RvMw=="));
+            "ChBDb3RlU2VydmVyLnByb3RvEg5Db3RlLkdycGNQcm90byJECg9TYXZlQ290",
+            "ZUxvZ1Bhcm0SMQoMQ29ldExvZ0luZm9zGAEgAygLMhsuQ290ZS5HcnBjUHJv",
+            "dG8uQ29ldExvZ0luZm8iKQoRU2F2ZUNvdGVMb2dSZXN1bHQSFAoMRXhlY3V0",
+            "ZUNvdW50GAEgASgFIkgKE0NvZXRMb2dTZWFyY2hSZXN1bHQSMQoMQ29ldExv",
+            "Z0luZm9zGAEgAygLMhsuQ290ZS5HcnBjUHJvdG8uQ29ldExvZ0luZm8iTwoL",
+            "Q29ldExvZ0luZm8SDAoEVHlwZRgBIAEoCRIQCghKc29uSW5mbxgCIAEoCRIO",
+            "CgZTZW5kSVAYAyABKAkSEAoIU2VuZE5hbWUYBCABKAkiPwoRQ29ldExvZ1Nl",
+            "YXJjaFBhcm0SFQoNU3RhcnREYXRlVGltZRgBIAEoCRITCgtFbmREYXRlVGlt",
+            "ZRgCIAEoCTJaCgdDb2V0TG9nEk8KB1NhdmVMb2cSHy5Db3RlLkdycGNQcm90",
+            "by5TYXZlQ290ZUxvZ1Bhcm0aIS5Db3RlLkdycGNQcm90by5TYXZlQ290ZUxv",
+            "Z1Jlc3VsdCIAMmEKC0NvZXRBbmFseXNlElIKBkdldExvZxIhLkNvdGUuR3Jw",
+            "Y1Byb3RvLkNvZXRMb2dTZWFyY2hQYXJtGiMuQ290ZS5HcnBjUHJvdG8uQ29l",
+            "dExvZ1NlYXJjaFJlc3VsdCIAQghQAaICA0hMV2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Cote.GrpcProto.SaveCoteLogParm), global::Cote.GrpcProto.SaveCoteLogParm.Parser, new[]{ "CoetLogInfos" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Cote.GrpcProto.SaveCoteLogResult), global::Cote.GrpcProto.SaveCoteLogResult.Parser, new[]{ "ExecuteCount" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Cote.GrpcProto.CoetLogSearchResult), global::Cote.GrpcProto.CoetLogSearchResult.Parser, new[]{ "CoetLogInfos" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Cote.GrpcProto.CoetLogInfo), global::Cote.GrpcProto.CoetLogInfo.Parser, new[]{ "Type", "JsonInfo", "SendIP", "SendName" }, null, null, null),
@@ -47,6 +49,115 @@ namespace Cote.GrpcProto {
 
   }
   #region Messages
+  public sealed partial class SaveCoteLogParm : pb::IMessage<SaveCoteLogParm> {
+    private static readonly pb::MessageParser<SaveCoteLogParm> _parser = new pb::MessageParser<SaveCoteLogParm>(() => new SaveCoteLogParm());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<SaveCoteLogParm> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Cote.GrpcProto.CoteServerReflection.Descriptor.MessageTypes[0]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SaveCoteLogParm() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SaveCoteLogParm(SaveCoteLogParm other) : this() {
+      coetLogInfos_ = other.coetLogInfos_.Clone();
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SaveCoteLogParm Clone() {
+      return new SaveCoteLogParm(this);
+    }
+
+    /// <summary>Field number for the "CoetLogInfos" field.</summary>
+    public const int CoetLogInfosFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Cote.GrpcProto.CoetLogInfo> _repeated_coetLogInfos_codec
+        = pb::FieldCodec.ForMessage(10, global::Cote.GrpcProto.CoetLogInfo.Parser);
+    private readonly pbc::RepeatedField<global::Cote.GrpcProto.CoetLogInfo> coetLogInfos_ = new pbc::RepeatedField<global::Cote.GrpcProto.CoetLogInfo>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Cote.GrpcProto.CoetLogInfo> CoetLogInfos {
+      get { return coetLogInfos_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as SaveCoteLogParm);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(SaveCoteLogParm other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!coetLogInfos_.Equals(other.coetLogInfos_)) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= coetLogInfos_.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      coetLogInfos_.WriteTo(output, _repeated_coetLogInfos_codec);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += coetLogInfos_.CalculateSize(_repeated_coetLogInfos_codec);
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(SaveCoteLogParm other) {
+      if (other == null) {
+        return;
+      }
+      coetLogInfos_.Add(other.coetLogInfos_);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            coetLogInfos_.AddEntriesFrom(input, _repeated_coetLogInfos_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class SaveCoteLogResult : pb::IMessage<SaveCoteLogResult> {
     private static readonly pb::MessageParser<SaveCoteLogResult> _parser = new pb::MessageParser<SaveCoteLogResult>(() => new SaveCoteLogResult());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -54,7 +165,7 @@ namespace Cote.GrpcProto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Cote.GrpcProto.CoteServerReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Cote.GrpcProto.CoteServerReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -171,7 +282,7 @@ namespace Cote.GrpcProto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Cote.GrpcProto.CoteServerReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Cote.GrpcProto.CoteServerReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -280,7 +391,7 @@ namespace Cote.GrpcProto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Cote.GrpcProto.CoteServerReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Cote.GrpcProto.CoteServerReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -481,7 +592,7 @@ namespace Cote.GrpcProto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Cote.GrpcProto.CoteServerReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Cote.GrpcProto.CoteServerReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

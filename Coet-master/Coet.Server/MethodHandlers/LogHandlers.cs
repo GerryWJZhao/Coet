@@ -11,33 +11,43 @@ namespace Coet.Server.MethodHandlers
 {
     class LogHandlers : CoetLog.CoetLogBase
     {
-        public override Task<SaveCoteLogResult> SaveLog(CoetLogInfo request, ServerCallContext context)
+        public override Task<SaveCoteLogResult> SaveLog(SaveCoteLogParm request, ServerCallContext context)
         {
+            List<CoetLogInfoEntity> logInfoList = new List<CoetLogInfoEntity>();
+            foreach (var item in request.CoetLogInfos)
+            {
+                logInfoList.Add(new CoetLogInfoEntity {
+                    Type = item.Type,
+                    JsonInfo = item.JsonInfo,
+                    SendIP = item.SendIP,
+                    SendName = item.SendName
+                });
+            }
+
             LogMethod lm = new LogMethod();
-            int executeCount = lm.SaveLog(request.Type, request.JsonInfo, request.SendIP, request.SendName);
+            int executeCount = lm.SaveLog(logInfoList);
+
             return Task.FromResult(new SaveCoteLogResult { ExecuteCount = executeCount });
         }
     }
 
     class LogMethod
     {
-        public int SaveLog(string type, string jsonInfo, string sendIP, string sendName)
+        public int SaveLog(List<CoetLogInfoEntity> logInfoList)
         {
             try
             {
                 string tableName = LogTable.GetCurrentLogTName();
 
-                string sql = string.Format(@"insert into {0}(Type, JsonInfo, SendIP, SendName, Createdt) 
-                                             value(@Type, @JsonInfo, @SendIP, @SendName, now());", tableName);
+                StringBuilder sb = new StringBuilder();
+                foreach (var item in logInfoList)
+                {
+                    sb.AppendFormat(@"insert into {0}(Type, JsonInfo, SendIP, SendName, Createdt) 
+                                      value({1}, {2}, {3}, {4}, now());",
+                                      tableName, item.Type, item.JsonInfo, item.SendIP, item.SendName);
+                }
 
-                return DBOperate.ExecuteNonQuery(sql,
-                       new
-                       {
-                           Type = type,
-                           JsonInfo = jsonInfo,
-                           SendIP = sendIP,
-                           SendName = sendName
-                       });
+                return DBOperate.ExecuteNonQuery(sb.ToString(), new { });
             }
             catch (Exception ex)
             {
