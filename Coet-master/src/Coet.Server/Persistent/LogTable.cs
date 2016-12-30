@@ -36,7 +36,7 @@ namespace Coet.Server.Persistent
 
             List<string> rlist = DBOperate.ExecuteDataList<string>(sql, new object());
 
-            if (rlist.Count < 0)
+            if (rlist.Count <= 0)
             {
                 DBOperate.ExecuteNonQuery(string.Format(logTDefine, tableName), new object());
             }

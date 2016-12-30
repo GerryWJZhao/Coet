@@ -47,15 +47,30 @@ namespace Coet.Server.MethodHandlers
             {
                 string tableName = LogTable.GetCurrentLogTName();
 
-                StringBuilder sb = new StringBuilder();
-                foreach (var item in logInfoList)
+                int executeCount = 0;
+                int levelCount = 200;
+                int partCount = 1;
+
+                if (logInfoList.Count > levelCount)
                 {
-                    sb.AppendFormat(@"insert into {0}(Type, JsonInfo, SendIP, SendName, Createdt) 
-                                      value({1}, {2}, {3}, {4}, now());",
-                                      tableName, item.Type, item.JsonInfo, item.SendIP, item.SendName);
+                    partCount = logInfoList.Count / levelCount;
+                }
+                List<List<CoetLogInfoEntity>> partList = CoetArry.splitList(logInfoList, partCount);
+
+                foreach (var part in partList)
+                {
+                    StringBuilder sb = new StringBuilder();
+
+                    foreach (var item in part)
+                    {
+                        sb.AppendFormat(@"insert into {0}(Type, JsonInfo, SendIP, SendName, Createdt) value('{1}', '{2}', '{3}', '{4}', now());",
+                                          tableName, item.Type, item.JsonInfo, item.SendIP, item.SendName);
+                    }
+
+                    executeCount += DBOperate.ExecuteNonQuery(sb.ToString(), new { });
                 }
 
-                return DBOperate.ExecuteNonQuery(sb.ToString(), new { });
+                return executeCount;
             }
             catch (Exception ex)
             {

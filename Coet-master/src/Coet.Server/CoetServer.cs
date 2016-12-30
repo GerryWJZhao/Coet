@@ -22,32 +22,23 @@ class CoetServer
 
         AutoResetEvent autoReset = new AutoResetEvent(false);
 
-        Task.Run(() => {
-            Server LogServer = new Server
-            {
-                Services = { CoetLog.BindService(new LogHandlers()) },
-                Ports = { new ServerPort(listenIP, logPort, ServerCredentials.Insecure) }
-            };
-            LogServer.Start();
-
-            Console.WriteLine("LogServer Started");
-
-            LogServer.ShutdownAsync().Wait();
-        });
-
-        Task.Run(() =>
+        Server LogServer = new Server
         {
-            Server AnalyseServer = new Server
-            {
-                Services = { CoetAnalyse.BindService(new AnalyseHandlers()) },
-                Ports = { new ServerPort(listenIP, analysePort, ServerCredentials.Insecure) }
-            };
-            AnalyseServer.Start();
+            Services = { CoetLog.BindService(new LogHandlers()) },
+            Ports = { new ServerPort(listenIP, logPort, ServerCredentials.Insecure) }
+        };
+        LogServer.Start();
 
-            Console.WriteLine("AnalyseServer Started");
+        Console.WriteLine("LogServer Started");
 
-            AnalyseServer.ShutdownAsync().Wait();
-        });
+        Server AnalyseServer = new Server
+        {
+            Services = { CoetAnalyse.BindService(new AnalyseHandlers()) },
+            Ports = { new ServerPort(listenIP, analysePort, ServerCredentials.Insecure) }
+        };
+        AnalyseServer.Start();
+
+        Console.WriteLine("AnalyseServer Started");
 
         autoReset.WaitOne();
     }

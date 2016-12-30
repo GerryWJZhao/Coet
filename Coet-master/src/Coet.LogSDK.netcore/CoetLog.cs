@@ -19,12 +19,19 @@ namespace Coet.LogSDK
             Task.Run(() => {
                 lock (SendLogQueue)
                 {
-                    SendLogQueue.Enqueue(new CoetLogInfo {
-                        Type = type,
-                        JsonInfo = jsonInfo,
-                        SendIP = sendIP,
-                        SendName = sendName
-                    });
+                    try
+                    {
+                        SendLogQueue.Enqueue(new CoetLogInfo
+                        {
+                            Type = type,
+                            JsonInfo = jsonInfo,
+                            SendIP = sendIP,
+                            SendName = sendName
+                        });
+                    }
+                    catch (Exception)
+                    {
+                    }
                 }
             });
         }
@@ -35,32 +42,44 @@ namespace Coet.LogSDK
             {
                 if (sendTimer == null)
                 {
-                    Timer saveTimer = new Timer(new TimerCallback(async d =>
+                    sendTimer = new Timer(new TimerCallback(async d =>
                     {
                         if (!isSending)
                         {
                             isSending = true;
 
-                            Channel channel = new Channel(coetServerUrl, ChannelCredentials.Insecure);
-                            var client = new CoetLog.CoetLogClient(channel);
-
                             SaveCoetLogParm sp = new SaveCoetLogParm();
 
-                            while (SendLogQueue.Count > 0)
+                            while (SendLogQueue.Count > 0 && sp.CoetLogInfos.Count < 10000)
                             {
                                 CoetLogInfo ci = SendLogQueue.Dequeue();
-                                sp.CoetLogInfos.Add(ci);
+
+                                if (ci != null)
+                                {
+                                    sp.CoetLogInfos.Add(ci);
+                                }
                             }
 
-                            var reply = await client.SaveLogAsync(sp);
-
-                            if (reply.ExecuteCount < sp.CoetLogInfos.Count)
+                            if (sp.CoetLogInfos.Count > 0)
                             {
-                                foreach (var item in sp.CoetLogInfos)
+                                Channel channel = new Channel(coetServerUrl, ChannelCredentials.Insecure);
+                                var client = new CoetLog.CoetLogClient(channel);
+                                int executeCount = 0;
+                                try
                                 {
-                                    lock (SendLogQueue)
+                                    var reply = await client.SaveLogAsync(sp);
+                                    executeCount = reply.ExecuteCount;
+                                }
+                                catch (Exception) { }
+
+                                if (executeCount < sp.CoetLogInfos.Count)
+                                {
+                                    foreach (var item in sp.CoetLogInfos)
                                     {
-                                        SendLogQueue.Enqueue(item);
+                                        lock (SendLogQueue)
+                                        {
+                                            SendLogQueue.Enqueue(item);
+                                        }
                                     }
                                 }
                             }
