@@ -1,4 +1,4 @@
-﻿using Cote.GrpcProto;
+﻿using Coet.GrpcProto;
 using Grpc.Core;
 using System;
 using System.Collections.Generic;
@@ -44,7 +44,7 @@ namespace Coet.LogSDK
                             Channel channel = new Channel(coetServerUrl, ChannelCredentials.Insecure);
                             var client = new CoetLog.CoetLogClient(channel);
 
-                            SaveCoteLogParm sp = new SaveCoteLogParm();
+                            SaveCoetLogParm sp = new SaveCoetLogParm();
 
                             while (SendLogQueue.Count > 0)
                             {

@@ -1,6 +1,6 @@
 ﻿using Coet.Server.Infrastructure;
 using Coet.Server.Persistent;
-using Cote.GrpcProto;
+using Coet.GrpcProto;
 using System;
 using System.Collections.Generic;
 using System.Text;

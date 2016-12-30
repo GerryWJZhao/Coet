@@ -32,21 +32,21 @@ syntax = "proto3";
 option java_multiple_files = true;
 option objc_class_prefix = "HLW";
 
-package Cote.GrpcProto;
+package Coet.GrpcProto;
 
 service CoetLog {
-  rpc SaveLog (SaveCoteLogParm) returns (SaveCoteLogResult) {}
+  rpc SaveLog (SaveCoetLogParm) returns (SaveCoetLogResult) {}
 }
 
 service CoetAnalyse {
   rpc GetLog (CoetLogSearchParm) returns (CoetLogSearchResult) {}
 }
 
-message SaveCoteLogParm {
+message SaveCoetLogParm {
 	repeated CoetLogInfo CoetLogInfos = 1;
 }
 
-message SaveCoteLogResult {
+message SaveCoetLogResult {
 	int32 ExecuteCount = 1;
 }
 

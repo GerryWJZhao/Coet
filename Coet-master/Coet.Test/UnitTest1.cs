@@ -1,7 +1,7 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Coet.AnalyseSDK;
-using Cote.GrpcProto;
+using Coet.GrpcProto;
 using System.Threading.Tasks;
 
 namespace Coet.Test
