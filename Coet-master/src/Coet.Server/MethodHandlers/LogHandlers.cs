@@ -13,22 +13,29 @@ namespace Coet.Server.MethodHandlers
     {
         public override Task<SaveCoetLogResult> SaveLog(SaveCoetLogParm request, ServerCallContext context)
         {
-            List<CoetLogInfoEntity> logInfoList = new List<CoetLogInfoEntity>();
-            foreach (var item in request.CoetLogInfos)
+            if (Common.isAllowHost(context.Host))
             {
-                logInfoList.Add(new CoetLogInfoEntity
+                List<CoetLogInfoEntity> logInfoList = new List<CoetLogInfoEntity>();
+                foreach (var item in request.CoetLogInfos)
                 {
-                    Type = item.Type,
-                    JsonInfo = item.JsonInfo,
-                    SendIP = item.SendIP,
-                    SendName = item.SendName
-                });
+                    logInfoList.Add(new CoetLogInfoEntity
+                    {
+                        Type = item.Type,
+                        JsonInfo = item.JsonInfo,
+                        SendIP = item.SendIP,
+                        SendName = item.SendName
+                    });
+                }
+
+                LogMethod lm = new LogMethod();
+                int executeCount = lm.SaveLog(logInfoList);
+
+                return Task.FromResult(new SaveCoetLogResult { ExecuteCount = executeCount });
             }
-
-            LogMethod lm = new LogMethod();
-            int executeCount = lm.SaveLog(logInfoList);
-
-            return Task.FromResult(new SaveCoetLogResult { ExecuteCount = executeCount });
+            else
+            {
+                return Task.FromResult(new SaveCoetLogResult { ExecuteCount = 0 });
+            }
         }
     }
 

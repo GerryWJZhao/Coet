@@ -13,22 +13,30 @@ namespace Coet.Server.MethodHandlers
     {
         public override Task<CoetLogSearchResult> GetLog(CoetLogSearchParm request, ServerCallContext context)
         {
-            AnalyseMethod am = new AnalyseMethod();
-
-            List<CoetLogInfoEntity> logInfoList = am.GetLog(request.StartDateTime, request.EndDateTime);
-
-            CoetLogSearchResult csr = new CoetLogSearchResult();
-            foreach (var item in logInfoList)
+            if (Common.isAllowHost(context.Host))
             {
-                csr.CoetLogInfos.Add(new CoetLogInfo {
-                    Type = item.Type,
-                    JsonInfo = item.JsonInfo,
-                    SendIP = item.SendIP,
-                    SendName = item.SendName
-                });
-            }
+                AnalyseMethod am = new AnalyseMethod();
 
-            return Task.FromResult(csr);
+                List<CoetLogInfoEntity> logInfoList = am.GetLog(request.StartDateTime, request.EndDateTime);
+
+                CoetLogSearchResult csr = new CoetLogSearchResult();
+                foreach (var item in logInfoList)
+                {
+                    csr.CoetLogInfos.Add(new CoetLogInfo
+                    {
+                        Type = item.Type,
+                        JsonInfo = item.JsonInfo,
+                        SendIP = item.SendIP,
+                        SendName = item.SendName
+                    });
+                }
+
+                return Task.FromResult(csr);
+            }
+            else
+            {
+                return Task.FromResult(new CoetLogSearchResult());
+            }
         }
     }
 
