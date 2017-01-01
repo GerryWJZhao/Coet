@@ -2,11 +2,20 @@
 using Grpc.Core;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Coet.AnalyseSDK
 {
+    public enum CoetAnalyseAddPart
+    {
+        AddDays,
+        AddHours,
+        AddMinutes,
+        AddSeconds
+    }
+
     public class CoetAnalyseSDK
     {
         CoetAnalyse.CoetAnalyseClient client;
@@ -17,12 +26,12 @@ namespace Coet.AnalyseSDK
             client = new CoetAnalyse.CoetAnalyseClient(channel);
         }
 
-        public async void GetLogAsync(string startDateTime, string endDateTime, Func<CoetLogSearchResult, object> func)
+        public async void GetLogAsync(string startDateTime, string endDateTime, CoetAnalyseAddPart part, Func<CoetLogSearchResult, object> func, int addNum = 1)
         {
             DateTime sDate = Convert.ToDateTime(startDateTime);
             DateTime eDate = Convert.ToDateTime(endDateTime);
 
-            List<AcrossDateEntity> acrossDateList = GetAcrossDate(sDate, eDate);
+            List<AcrossDateEntity> acrossDateList = GetAcrossDate(sDate, eDate, part, addNum);
 
             foreach (var item in acrossDateList)
             {
@@ -36,14 +45,14 @@ namespace Coet.AnalyseSDK
             }
         }
 
-        private List<AcrossDateEntity> GetAcrossDate(DateTime sDate, DateTime eDate)
+        private List<AcrossDateEntity> GetAcrossDate(DateTime sDate, DateTime eDate, CoetAnalyseAddPart part, int addNum)
         {
             List<AcrossDateEntity> acrossDateList = new List<AcrossDateEntity>();
             DateTime acrossDate = sDate;
 
             if (eDate > sDate)
             {
-                if (sDate.AddSeconds(1) > eDate)
+                if (sDate.AddDate(addNum, part) > eDate)
                 {
                     acrossDateList.Add(new AcrossDateEntity
                     {
@@ -60,7 +69,7 @@ namespace Coet.AnalyseSDK
                             AcrossDateEntity ad = new AcrossDateEntity();
 
                             ad.StartDate = acrossDate;
-                            acrossDate = acrossDate.AddSeconds(1);
+                            acrossDate = acrossDate.AddDate(addNum, part);
 
                             if (acrossDate > eDate)
                             {
@@ -82,6 +91,19 @@ namespace Coet.AnalyseSDK
             }
 
             return acrossDateList;
+        }
+    }
+
+    static class CoetDateTimeExtension
+    {
+        internal static DateTime AddDate(this DateTime date, int value, CoetAnalyseAddPart part)
+        {
+            TypeInfo ti = typeof(DateTime).GetTypeInfo();
+            MethodInfo mi = ti.GetMethod(part.ToString());
+
+            var newDate = mi.Invoke(date, new object[1] { value });
+
+            return Convert.ToDateTime(newDate);
         }
     }
 
