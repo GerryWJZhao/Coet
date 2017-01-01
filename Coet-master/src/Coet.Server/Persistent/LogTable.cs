@@ -43,5 +43,10 @@ namespace Coet.Server.Persistent
 
             return tableName;
         }
+
+        public static string GetLogTName(DateTime dt)
+        {
+            return string.Format("Log_{0}", dt.ToString("yyyyMM"));
+        }
     }
 }

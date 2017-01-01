@@ -17,13 +17,11 @@ namespace Coet.Server.Infrastructure
 
         public static void Info(string msg)
         {
-            StartSaveTimer();
             AddLocalLog("info", msg);
         }
 
         public static void Error(string msg)
         {
-            StartSaveTimer();
             AddLocalLog("error", msg);
         }
 
@@ -50,44 +48,46 @@ namespace Coet.Server.Infrastructure
             }
         }
 
-        private static void StartSaveTimer()
+        public static void StartSave()
         {
             try
             {
                 if (saveTimer == null)
                 {
+                    var conf = new ConfigurationBuilder()
+                               .AddJsonFile("AppConfig.json")
+                               .Build();
+                    localLogPath = conf.GetSection("AppConfig:LocalLogPath").Value;
+
                     Timer saveTimer = new Timer(new TimerCallback(async d =>
                     {
                         if (!isSaveing)
                         {
                             isSaveing = true;
 
-                            if (string.IsNullOrEmpty(localLogPath))
-                            {
-                                var conf = new ConfigurationBuilder()
-                                           .AddJsonFile("AppConfig.json")
-                                           .Build();
-                                localLogPath = conf.GetSection("AppConfig:LocalLogPath").Value;
-                            }
-
-                            string dateLocalLogPath = string.Format("{0}_{1}.txt", localLogPath, DateTime.Now.ToString("yyyyMMdd"));
-
-                            FileStream fs = new FileStream(dateLocalLogPath, FileMode.OpenOrCreate, FileAccess.Write);
+                            StringBuilder sb = new StringBuilder();
 
                             while (logQueue.Count > 0)
                             {
                                 logInfo l = logQueue.Dequeue();
-
-                                if (l != null)
-                                {
-                                    string logStr = string.Format("{0} {1} {2}", l.Time.ToString(), l.Type, l.Msg);
-                                    StreamWriter sr = new StreamWriter(fs);
-                                    await sr.WriteLineAsync(logStr);
-                                    sr.Dispose();
-                                }
+                                sb.AppendFormat("{0} {1} {2}\r\n", l.Time.ToString(), l.Type, l.Msg);
                             }
 
-                            fs.Dispose();
+                            string logStr = sb.ToString();
+
+                            if (!string.IsNullOrWhiteSpace(logStr))
+                            {
+                                string dateLocalLogPath = string.Format("{0}_{1}.txt", localLogPath, DateTime.Now.ToString("yyyyMMdd"));
+
+                                FileStream fs = new FileStream(dateLocalLogPath, FileMode.Append, FileAccess.Write);
+                                StreamWriter sr = new StreamWriter(fs);
+
+                                await sr.WriteLineAsync(logStr);
+                                Console.WriteLine(logStr);
+
+                                sr.Dispose();
+                                fs.Dispose();
+                            }
 
                             isSaveing = false;
                         }

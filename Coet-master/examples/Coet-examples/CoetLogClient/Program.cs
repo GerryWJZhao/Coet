@@ -29,8 +29,6 @@ namespace CoetLogClient
 
                 Thread.Sleep(500);
             }
-
-            Console.ReadLine();
         }
     }
 

@@ -46,12 +46,30 @@ namespace Coet.Server.MethodHandlers
         {
             try
             {
-                string tableName = LogTable.GetCurrentLogTName();
+                string execSql = string.Empty;
 
-                string sql = string.Format(@"select Type, JsonInfo, SendIP, SendName, Createdt 
-                                             from {0} where Createdt between @startDateTime and @endDateTime", tableName);
+                string sqlTemplate = @"select Type, JsonInfo, SendIP, SendName, Createdt 
+                                       from {0} where Createdt between @startDateTime and @endDateTime";
 
-                return DBOperate.ExecuteDataList<CoetLogInfoEntity>(sql, new { startDateTime = startDateTime, endDateTime = endDateTime });
+                DateTime sDate = Convert.ToDateTime(startDateTime);
+                DateTime eDate = Convert.ToDateTime(endDateTime);
+
+                if (sDate.Year != eDate.Year || sDate.Month != eDate.Month)
+                {
+                    string stableName = LogTable.GetLogTName(sDate);
+                    string etableName = LogTable.GetLogTName(eDate);
+
+                    execSql = string.Format("{0} union {1}",
+                        string.Format(sqlTemplate, stableName),
+                        string.Format(sqlTemplate, etableName));
+                }
+                else
+                {
+                    string tableName = LogTable.GetLogTName(sDate);
+                    execSql = string.Format(sqlTemplate, tableName);
+                }
+
+                return DBOperate.ExecuteDataList<CoetLogInfoEntity>(execSql, new { startDateTime = startDateTime, endDateTime = endDateTime });
             }
             catch (Exception ex)
             {

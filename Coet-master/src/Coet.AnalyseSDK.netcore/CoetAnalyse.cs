@@ -17,15 +17,77 @@ namespace Coet.AnalyseSDK
             client = new CoetAnalyse.CoetAnalyseClient(channel);
         }
 
-        public async Task<CoetLogSearchResult> GetLogAsync(string startDateTime, string endDateTime)
+        public async void GetLogAsync(string startDateTime, string endDateTime, Func<CoetLogSearchResult, object> func)
         {
-            var reply = await client.GetLogAsync(new CoetLogSearchParm
-            {
-                StartDateTime = startDateTime,
-                EndDateTime = endDateTime
-            });
+            DateTime sDate = Convert.ToDateTime(startDateTime);
+            DateTime eDate = Convert.ToDateTime(endDateTime);
 
-            return reply;
+            List<AcrossDateEntity> acrossDateList = GetAcrossDate(sDate, eDate);
+
+            foreach (var item in acrossDateList)
+            {
+                var reply = await client.GetLogAsync(new CoetLogSearchParm
+                {
+                    StartDateTime = item.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                    EndDateTime = item.EndDate.ToString("yyyy-MM-dd HH:mm:ss")
+                });
+
+                func(reply);
+            }
         }
+
+        private List<AcrossDateEntity> GetAcrossDate(DateTime sDate, DateTime eDate)
+        {
+            List<AcrossDateEntity> acrossDateList = new List<AcrossDateEntity>();
+            DateTime acrossDate = sDate;
+
+            if (eDate > sDate)
+            {
+                if (sDate.AddSeconds(1) > eDate)
+                {
+                    acrossDateList.Add(new AcrossDateEntity
+                    {
+                        StartDate = acrossDate,
+                        EndDate = eDate
+                    });
+                }
+                else
+                {
+                    while (true)
+                    {
+                        if (acrossDate < eDate)
+                        {
+                            AcrossDateEntity ad = new AcrossDateEntity();
+
+                            ad.StartDate = acrossDate;
+                            acrossDate = acrossDate.AddSeconds(1);
+
+                            if (acrossDate > eDate)
+                            {
+                                ad.EndDate = eDate;
+                            }
+                            else
+                            {
+                                ad.EndDate = acrossDate;
+                            }
+
+                            acrossDateList.Add(ad);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return acrossDateList;
+        }
+    }
+
+    class AcrossDateEntity
+    {
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

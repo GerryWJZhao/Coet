@@ -1,6 +1,6 @@
 {
   "AppConfig": {
-    "MySqlConnetString": "server=192.168.1.109;user=CoetServer;database=CoetServer;port=3306;password=Foxconn1@#;SslMode=None",
+    "MySqlConnetString": "server=192.168.1.109;user=CoetServer;database=CoetServer;port=3306;password=Foxconn1@#;SslMode=None;Connection Timeout=999",
     "LocalLogPath": "C:\\CoetServerLog",
     "Listen": {
       "IP": "192.168.1.104",

@@ -5,12 +5,14 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
 using System.Threading;
+using Coet.Server.Infrastructure;
 
 class CoetServer
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Begin Start CoetServer....");
+        CoetLocalLog.StartSave();
+        CoetLocalLog.Info("Begin Start CoetServer....");
 
         var conf = new ConfigurationBuilder()
            .AddJsonFile("AppConfig.json")
@@ -29,7 +31,7 @@ class CoetServer
         };
         LogServer.Start();
 
-        Console.WriteLine("LogServer Started");
+        CoetLocalLog.Info("LogServer Started");
 
         Server AnalyseServer = new Server
         {
@@ -38,7 +40,7 @@ class CoetServer
         };
         AnalyseServer.Start();
 
-        Console.WriteLine("AnalyseServer Started");
+        CoetLocalLog.Info("AnalyseServer Started");
 
         autoReset.WaitOne();
     }

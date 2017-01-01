@@ -10,6 +10,10 @@ namespace Coet.LogSDK
 {
     public class CoetLogSDK
     {
+        const int queueMaxCount = 50000;
+        const int sendMaxCount = 10000;
+        const int timerinterval = 10000;
+
         static Queue<CoetLogInfo> SendLogQueue = new Queue<CoetLogInfo>();
         static Timer sendTimer = null;
         static bool isSending = false;
@@ -21,6 +25,10 @@ namespace Coet.LogSDK
                 {
                     try
                     {
+                        if (SendLogQueue.Count > queueMaxCount)
+                        {
+                            SendLogQueue.Dequeue();
+                        }
                         SendLogQueue.Enqueue(new CoetLogInfo
                         {
                             Type = type,
@@ -50,7 +58,7 @@ namespace Coet.LogSDK
 
                             SaveCoetLogParm sp = new SaveCoetLogParm();
 
-                            while (SendLogQueue.Count > 0 && sp.CoetLogInfos.Count < 10000)
+                            while (SendLogQueue.Count > 0 && sp.CoetLogInfos.Count < sendMaxCount)
                             {
                                 CoetLogInfo ci = SendLogQueue.Dequeue();
 
@@ -86,12 +94,11 @@ namespace Coet.LogSDK
 
                             isSending = false;
                         }
-                    }), new object(), 0, 10000);
+                    }), new object(), 0, timerinterval);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
             }
         }
     }
