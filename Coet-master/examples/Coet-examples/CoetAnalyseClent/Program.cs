@@ -17,7 +17,7 @@ namespace CoetAnalyseClent
             {
                 Console.WriteLine(c);
                 return new object();
-            });
+            }, 5);
 
             Console.ReadLine();
         }
