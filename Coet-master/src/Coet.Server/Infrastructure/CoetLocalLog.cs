@@ -59,7 +59,7 @@ namespace Coet.Server.Infrastructure
                                .Build();
                     localLogPath = conf.GetSection("AppConfig:LocalLogPath").Value;
 
-                    Timer saveTimer = new Timer(new TimerCallback(async d =>
+                    saveTimer = new Timer(new TimerCallback(async d =>
                     {
                         if (!isSaveing)
                         {
