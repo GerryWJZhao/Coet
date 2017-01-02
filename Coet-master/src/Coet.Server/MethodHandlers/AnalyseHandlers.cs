@@ -17,7 +17,7 @@ namespace Coet.Server.MethodHandlers
             {
                 AnalyseMethod am = new AnalyseMethod();
 
-                List<CoetLogInfoEntity> logInfoList = am.GetLog(request.StartDateTime, request.EndDateTime, request.Type);
+                List<CoetLogInfoEntity> logInfoList = am.GetLog(request.StartDateTime, request.EndDateTime, request.LogType);
 
                 CoetLogSearchResult csr = new CoetLogSearchResult();
                 foreach (var item in logInfoList)
@@ -42,7 +42,7 @@ namespace Coet.Server.MethodHandlers
 
     class AnalyseMethod
     {
-        public List<CoetLogInfoEntity> GetLog(string startDateTime, string endDateTime, string type)
+        public List<CoetLogInfoEntity> GetLog(string startDateTime, string endDateTime, string logType)
         {
             try
             {
@@ -52,13 +52,13 @@ namespace Coet.Server.MethodHandlers
                 string sqlTemplate = @"select Type, JsonInfo, SendIP, SendName, Createdt 
                                        from {0} where Createdt between @startDateTime and @endDateTime";
 
-                if (type == "ALL")
+                if (logType == "ALL")
                 {
-                    typeWhereTemplate = "1 = 1";
+                    typeWhereTemplate = "and 1 = 1";
                 }
                 else
                 {
-                    typeWhereTemplate = string.Format("Type = '{0}'", type);
+                    typeWhereTemplate = string.Format("and Type = '{0}'", logType);
                 }
 
                 sqlTemplate = string.Format("{0} {1}", sqlTemplate, typeWhereTemplate);

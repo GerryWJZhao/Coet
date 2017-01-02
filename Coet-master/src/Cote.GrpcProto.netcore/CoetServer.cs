@@ -28,14 +28,14 @@ namespace Coet.GrpcProto {
             "ZUNvdW50GAEgASgFIkgKE0NvZXRMb2dTZWFyY2hSZXN1bHQSMQoMQ29ldExv",
             "Z0luZm9zGAEgAygLMhsuQ29ldC5HcnBjUHJvdG8uQ29ldExvZ0luZm8iTwoL",
             "Q29ldExvZ0luZm8SDAoEVHlwZRgBIAEoCRIQCghKc29uSW5mbxgCIAEoCRIO",
-            "CgZTZW5kSVAYAyABKAkSEAoIU2VuZE5hbWUYBCABKAkiTQoRQ29ldExvZ1Nl",
+            "CgZTZW5kSVAYAyABKAkSEAoIU2VuZE5hbWUYBCABKAkiUAoRQ29ldExvZ1Nl",
             "YXJjaFBhcm0SFQoNU3RhcnREYXRlVGltZRgBIAEoCRITCgtFbmREYXRlVGlt",
-            "ZRgCIAEoCRIMCgRUeXBlGAMgASgJMloKB0NvZXRMb2cSTwoHU2F2ZUxvZxIf",
-            "LkNvZXQuR3JwY1Byb3RvLlNhdmVDb2V0TG9nUGFybRohLkNvZXQuR3JwY1By",
-            "b3RvLlNhdmVDb2V0TG9nUmVzdWx0IgAyYQoLQ29ldEFuYWx5c2USUgoGR2V0",
-            "TG9nEiEuQ29ldC5HcnBjUHJvdG8uQ29ldExvZ1NlYXJjaFBhcm0aIy5Db2V0",
-            "LkdycGNQcm90by5Db2V0TG9nU2VhcmNoUmVzdWx0IgBCCFABogIDSExXYgZw",
-            "cm90bzM="));
+            "ZRgCIAEoCRIPCgdMb2dUeXBlGAMgASgJMloKB0NvZXRMb2cSTwoHU2F2ZUxv",
+            "ZxIfLkNvZXQuR3JwY1Byb3RvLlNhdmVDb2V0TG9nUGFybRohLkNvZXQuR3Jw",
+            "Y1Byb3RvLlNhdmVDb2V0TG9nUmVzdWx0IgAyYQoLQ29ldEFuYWx5c2USUgoG",
+            "R2V0TG9nEiEuQ29ldC5HcnBjUHJvdG8uQ29ldExvZ1NlYXJjaFBhcm0aIy5D",
+            "b2V0LkdycGNQcm90by5Db2V0TG9nU2VhcmNoUmVzdWx0IgBCCFABogIDSExX",
+            "YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -43,7 +43,7 @@ namespace Coet.GrpcProto {
             new pbr::GeneratedClrTypeInfo(typeof(global::Coet.GrpcProto.SaveCoetLogResult), global::Coet.GrpcProto.SaveCoetLogResult.Parser, new[]{ "ExecuteCount" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Coet.GrpcProto.CoetLogSearchResult), global::Coet.GrpcProto.CoetLogSearchResult.Parser, new[]{ "CoetLogInfos" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Coet.GrpcProto.CoetLogInfo), global::Coet.GrpcProto.CoetLogInfo.Parser, new[]{ "Type", "JsonInfo", "SendIP", "SendName" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Coet.GrpcProto.CoetLogSearchParm), global::Coet.GrpcProto.CoetLogSearchParm.Parser, new[]{ "StartDateTime", "EndDateTime", "Type" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Coet.GrpcProto.CoetLogSearchParm), global::Coet.GrpcProto.CoetLogSearchParm.Parser, new[]{ "StartDateTime", "EndDateTime", "LogType" }, null, null, null)
           }));
     }
     #endregion
@@ -612,7 +612,7 @@ namespace Coet.GrpcProto {
     public CoetLogSearchParm(CoetLogSearchParm other) : this() {
       startDateTime_ = other.startDateTime_;
       endDateTime_ = other.endDateTime_;
-      type_ = other.type_;
+      logType_ = other.logType_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -642,14 +642,14 @@ namespace Coet.GrpcProto {
       }
     }
 
-    /// <summary>Field number for the "Type" field.</summary>
-    public const int TypeFieldNumber = 3;
-    private string type_ = "";
+    /// <summary>Field number for the "LogType" field.</summary>
+    public const int LogTypeFieldNumber = 3;
+    private string logType_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Type {
-      get { return type_; }
+    public string LogType {
+      get { return logType_; }
       set {
-        type_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        logType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -668,7 +668,7 @@ namespace Coet.GrpcProto {
       }
       if (StartDateTime != other.StartDateTime) return false;
       if (EndDateTime != other.EndDateTime) return false;
-      if (Type != other.Type) return false;
+      if (LogType != other.LogType) return false;
       return true;
     }
 
@@ -677,7 +677,7 @@ namespace Coet.GrpcProto {
       int hash = 1;
       if (StartDateTime.Length != 0) hash ^= StartDateTime.GetHashCode();
       if (EndDateTime.Length != 0) hash ^= EndDateTime.GetHashCode();
-      if (Type.Length != 0) hash ^= Type.GetHashCode();
+      if (LogType.Length != 0) hash ^= LogType.GetHashCode();
       return hash;
     }
 
@@ -696,9 +696,9 @@ namespace Coet.GrpcProto {
         output.WriteRawTag(18);
         output.WriteString(EndDateTime);
       }
-      if (Type.Length != 0) {
+      if (LogType.Length != 0) {
         output.WriteRawTag(26);
-        output.WriteString(Type);
+        output.WriteString(LogType);
       }
     }
 
@@ -711,8 +711,8 @@ namespace Coet.GrpcProto {
       if (EndDateTime.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(EndDateTime);
       }
-      if (Type.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Type);
+      if (LogType.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(LogType);
       }
       return size;
     }
@@ -728,8 +728,8 @@ namespace Coet.GrpcProto {
       if (other.EndDateTime.Length != 0) {
         EndDateTime = other.EndDateTime;
       }
-      if (other.Type.Length != 0) {
-        Type = other.Type;
+      if (other.LogType.Length != 0) {
+        LogType = other.LogType;
       }
     }
 
@@ -750,7 +750,7 @@ namespace Coet.GrpcProto {
             break;
           }
           case 26: {
-            Type = input.ReadString();
+            LogType = input.ReadString();
             break;
           }
         }

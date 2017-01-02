@@ -64,7 +64,7 @@ message CoetLogInfo {
 message CoetLogSearchParm {
 	string StartDateTime = 1;
 	string EndDateTime = 2;
-	string Type = 3;
+	string LogType = 3;
 }
 
 

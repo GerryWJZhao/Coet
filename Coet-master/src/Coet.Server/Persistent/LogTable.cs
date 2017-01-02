@@ -9,7 +9,7 @@ namespace Coet.Server.Persistent
         const string logTDefine = @"CREATE TABLE `{0}` (
                               `Id` int(64) NOT NULL AUTO_INCREMENT,
                               `Type` varchar(20) DEFAULT NULL,
-                              `JsonInfo` longtext,
+                              `JsonInfo` json,
                               `SendIP` varchar(64) DEFAULT NULL,
                               `SendName` varchar(64) DEFAULT NULL,
                               `IdentificationId` varchar(64) DEFAULT NULL,

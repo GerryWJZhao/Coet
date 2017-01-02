@@ -26,7 +26,7 @@ namespace Coet.AnalyseSDK
             client = new CoetAnalyse.CoetAnalyseClient(channel);
         }
 
-        public async void GetLogAsync(string startDateTime, string endDateTime, CoetAnalyseAddPart part, Func<CoetLogSearchResult, object> func, int addNum = 1)
+        public async void GetLogAsync(string startDateTime, string endDateTime, CoetAnalyseAddPart part, Func<CoetLogSearchResult, object> func, string logType = "ALL", int addNum = 1)
         {
             DateTime sDate = Convert.ToDateTime(startDateTime);
             DateTime eDate = Convert.ToDateTime(endDateTime);
@@ -38,7 +38,8 @@ namespace Coet.AnalyseSDK
                 var reply = await client.GetLogAsync(new CoetLogSearchParm
                 {
                     StartDateTime = item.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
-                    EndDateTime = item.EndDate.ToString("yyyy-MM-dd HH:mm:ss")
+                    EndDateTime = item.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                    LogType = logType
                 });
 
                 func(reply);
