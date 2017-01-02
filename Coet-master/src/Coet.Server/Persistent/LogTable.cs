@@ -12,6 +12,7 @@ namespace Coet.Server.Persistent
                               `JsonInfo` longtext,
                               `SendIP` varchar(64) DEFAULT NULL,
                               `SendName` varchar(64) DEFAULT NULL,
+                              `IdentificationId` varchar(64) DEFAULT NULL,
                               `Createdt` datetime DEFAULT NULL,
                               PRIMARY KEY (`Id`),
                               KEY `index_Tpye` (`Type`),

@@ -12,7 +12,7 @@ namespace Coet.LogSDK
     {
         const int queueMaxCount = 50000;
         const int sendMaxCount = 10000;
-        const int timerinterval = 10000;
+        const int timerinterval = 1000;
 
         static Queue<CoetLogInfo> SendLogQueue = new Queue<CoetLogInfo>();
         static Timer sendTimer = null;
@@ -77,6 +77,7 @@ namespace Coet.LogSDK
                                 {
                                     var reply = await client.SaveLogAsync(sp);
                                     executeCount = reply.ExecuteCount;
+                                    Console.WriteLine(executeCount);
                                 }
                                 catch (Exception) { }
 

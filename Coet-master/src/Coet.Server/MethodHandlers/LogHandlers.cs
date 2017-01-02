@@ -63,8 +63,8 @@ namespace Coet.Server.MethodHandlers
 
                     foreach (var item in part)
                     {
-                        sb.AppendFormat(@"insert into {0}(Type, JsonInfo, SendIP, SendName, Createdt) value('{1}', '{2}', '{3}', '{4}', now());",
-                                          tableName, item.Type, item.JsonInfo, item.SendIP, item.SendName);
+                        sb.AppendFormat(@"insert into {0}(Type, JsonInfo, SendIP, SendName, IdentificationId, Createdt) value('{1}', '{2}', '{3}', '{4}', '{5}', now());",
+                                          tableName, item.Type, item.JsonInfo, item.SendIP, item.SendName, Guid.NewGuid().ToString());
                     }
 
                     executeCount += DBOperate.ExecuteNonQuery(sb.ToString(), new { });
