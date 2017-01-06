@@ -10,10 +10,10 @@ namespace Coet.Server.Infrastructure
 {
     public class CoetLocalLog
     {
-        static Queue<logInfo> logQueue = new Queue<logInfo>();
-        static string localLogPath = string.Empty;
-        static Timer saveTimer = null;
-        static bool isSaveing = false;
+        private static Queue<logInfo> _logQueue = new Queue<logInfo>();
+        private static string _localLogPath = string.Empty;
+        private static Timer _saveTimer = null;
+        private static bool _isSaveing = false;
 
         public static void Info(string msg)
         {
@@ -37,9 +37,9 @@ namespace Coet.Server.Infrastructure
                 };
 
                 Task.Run(() => {
-                    lock (logQueue)
+                    lock (_logQueue)
                     {
-                        logQueue.Enqueue(loginfo);
+                        _logQueue.Enqueue(loginfo);
                     }
                 });
             }
@@ -52,24 +52,24 @@ namespace Coet.Server.Infrastructure
         {
             try
             {
-                if (saveTimer == null)
+                if (_saveTimer == null)
                 {
                     var conf = new ConfigurationBuilder()
                                .AddJsonFile("AppConfig.json")
                                .Build();
-                    localLogPath = conf.GetSection("AppConfig:LocalLogPath").Value;
+                    _localLogPath = conf.GetSection("AppConfig:LocalLogPath").Value;
 
-                    saveTimer = new Timer(new TimerCallback(async d =>
+                    _saveTimer = new Timer(new TimerCallback(async d =>
                     {
-                        if (!isSaveing)
+                        if (!_isSaveing)
                         {
-                            isSaveing = true;
+                            _isSaveing = true;
 
                             StringBuilder sb = new StringBuilder();
 
-                            while (logQueue.Count > 0)
+                            while (_logQueue.Count > 0)
                             {
-                                logInfo l = logQueue.Dequeue();
+                                logInfo l = _logQueue.Dequeue();
                                 sb.AppendFormat("{0} {1} {2}\r\n", l.Time.ToString(), l.Type, l.Msg);
                             }
 
@@ -77,7 +77,7 @@ namespace Coet.Server.Infrastructure
 
                             if (!string.IsNullOrWhiteSpace(logStr))
                             {
-                                string dateLocalLogPath = string.Format("{0}_{1}.txt", localLogPath, DateTime.Now.ToString("yyyyMMdd"));
+                                string dateLocalLogPath = string.Format("{0}_{1}.txt", _localLogPath, DateTime.Now.ToString("yyyyMMdd"));
 
                                 FileStream fs = new FileStream(dateLocalLogPath, FileMode.Append, FileAccess.Write);
                                 StreamWriter sr = new StreamWriter(fs);
@@ -89,7 +89,7 @@ namespace Coet.Server.Infrastructure
                                 fs.Dispose();
                             }
 
-                            isSaveing = false;
+                            _isSaveing = false;
                         }
 
                     }), new object(), 0, 5000);

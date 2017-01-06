@@ -10,26 +10,26 @@ namespace Coet.LogSDK
 {
     public class CoetLogSDK
     {
-        const int queueMaxCount = 50000;
-        const int sendMaxCount = 10000;
-        const int timerinterval = 1000;
+        private const int _queueMaxCount = 50000;
+        private const int _sendMaxCount = 10000;
+        private const int _timerinterval = 1000;
 
-        static Queue<CoetLogInfo> SendLogQueue = new Queue<CoetLogInfo>();
-        static Timer sendTimer = null;
-        static bool isSending = false;
+        private static Queue<CoetLogInfo> _sendLogQueue = new Queue<CoetLogInfo>();
+        private static Timer _sendTimer = null;
+        private static bool _isSending = false;
 
         public static void Log(string type, string jsonInfo, string sendIP, string sendName)
         {
             Task.Run(() => {
-                lock (SendLogQueue)
+                lock (_sendLogQueue)
                 {
                     try
                     {
-                        if (SendLogQueue.Count > queueMaxCount)
+                        if (_sendLogQueue.Count > _queueMaxCount)
                         {
-                            SendLogQueue.Dequeue();
+                            _sendLogQueue.Dequeue();
                         }
-                        SendLogQueue.Enqueue(new CoetLogInfo
+                        _sendLogQueue.Enqueue(new CoetLogInfo
                         {
                             Type = type,
                             JsonInfo = jsonInfo,
@@ -48,19 +48,19 @@ namespace Coet.LogSDK
         {
             try
             {
-                if (sendTimer == null)
+                if (_sendTimer == null)
                 {
-                    sendTimer = new Timer(new TimerCallback(async d =>
+                    _sendTimer = new Timer(new TimerCallback(async d =>
                     {
-                        if (!isSending)
+                        if (!_isSending)
                         {
-                            isSending = true;
+                            _isSending = true;
 
                             SaveCoetLogParm sp = new SaveCoetLogParm();
 
-                            while (SendLogQueue.Count > 0 && sp.CoetLogInfos.Count < sendMaxCount)
+                            while (_sendLogQueue.Count > 0 && sp.CoetLogInfos.Count < _sendMaxCount)
                             {
-                                CoetLogInfo ci = SendLogQueue.Dequeue();
+                                CoetLogInfo ci = _sendLogQueue.Dequeue();
 
                                 if (ci != null)
                                 {
@@ -85,17 +85,17 @@ namespace Coet.LogSDK
                                 {
                                     foreach (var item in sp.CoetLogInfos)
                                     {
-                                        lock (SendLogQueue)
+                                        lock (_sendLogQueue)
                                         {
-                                            SendLogQueue.Enqueue(item);
+                                            _sendLogQueue.Enqueue(item);
                                         }
                                     }
                                 }
                             }
 
-                            isSending = false;
+                            _isSending = false;
                         }
-                    }), new object(), 0, timerinterval);
+                    }), new object(), 0, _timerinterval);
                 }
             }
             catch (Exception)
