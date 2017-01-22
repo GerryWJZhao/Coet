@@ -13,7 +13,7 @@ namespace Coet.Server.MethodHandlers
     {
         public override Task<SaveCoetLogResult> SaveLog(SaveCoetLogParm request, ServerCallContext context)
         {
-            if (Common.isAllowHost(context.Host))
+            if (Common.isAllowHost(context.Peer))
             {
                 List<CoetLogInfoEntity> logInfoList = new List<CoetLogInfoEntity>();
                 foreach (var item in request.CoetLogInfos)

@@ -8,13 +8,13 @@ namespace Coet.Server.MethodHandlers
 {
     internal class Common
     {
-        internal static bool isAllowHost(string host)
+        internal static bool isAllowHost(string peer)
         {
             try
             {
-                host = host.Substring(0, host.IndexOf(":"));
+                peer = peer.Split(':')[0];
                 List<string> list = CoetConfig.GetAllowConnectIP();
-                if (list.Any(d => d == host))
+                if (list.Any(d => d == peer))
                 {
                     return true;
                 }
