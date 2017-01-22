@@ -57,10 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Cote.GrpcProto.netcore\CoetServer.cs">
+    <Compile Include="..\Coet.GrpcProto.netcore\CoetServer.cs">
       <Link>CoetServer.cs</Link>
     </Compile>
-    <Compile Include="..\Cote.GrpcProto.netcore\CoetServerGrpc.cs">
+    <Compile Include="..\Coet.GrpcProto.netcore\CoetServerGrpc.cs">
       <Link>CoetServerGrpc.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

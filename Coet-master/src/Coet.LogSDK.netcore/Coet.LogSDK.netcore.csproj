@@ -13,6 +13,6 @@
     <PackageReference Include="Microsoft.NETCore.App" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cote.GrpcProto.netcore\Coet.GrpcProto.netcore.csproj" />
+    <ProjectReference Include="..\Coet.GrpcProto.netcore\Coet.GrpcProto.netcore.csproj" />
   </ItemGroup>
 </Project>
