@@ -22,7 +22,7 @@ namespace CoetLogClient
                     {
                         Id = Guid.NewGuid().ToString(),
                         Action = "test",
-                        time = DateTime.Now
+                        Time = DateTime.Now
                     };
                     CoetLogSDK.Log("info", JsonConvert.SerializeObject(ec), "192.168.1.104", "examplesClient");
                 });
@@ -36,6 +36,6 @@ namespace CoetLogClient
     {
         public string Id { get; set; }
         public string Action { get; set; }
-        public DateTime time { get; set; }
+        public DateTime Time { get; set; }
     }
 }
