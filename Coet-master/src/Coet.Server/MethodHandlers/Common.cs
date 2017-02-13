@@ -12,7 +12,7 @@ namespace Coet.Server.MethodHandlers
         {
             try
             {
-                peer = peer.Split(':')[0];
+                peer = peer.Split(':')[1];
                 List<string> list = CoetConfig.GetAllowConnectIP();
                 if (list.Any(d => d == peer))
                 {

@@ -1,13 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>library</OutputType>
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <RuntimeIdentifiers>centos.7-x64</RuntimeIdentifiers>
   </PropertyGroup>
-  <ItemGroup>
+  <!--<ItemGroup>
     <Compile Include="**\*.cs" />
     <EmbeddedResource Include="**\*.resx" />
-  </ItemGroup>
+  </ItemGroup>-->
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.0.0" />
     <PackageReference Include="Grpc" Version="1.0.1" />

@@ -13,11 +13,11 @@ namespace CoetLogClient
     {
         static void Main(string[] args)
         {
-            CoetLogSDK.Start("192.168.1.104:50051");
+            CoetLogSDK.Start("192.168.1.110:50051");
 
             while (true)
             {
-                Parallel.For(0, 500, (i, j) => {
+                Parallel.For(0, 1, (i, j) => {
                     ExamplesClientEntity ec = new ExamplesClientEntity
                     {
                         Id = Guid.NewGuid().ToString(),

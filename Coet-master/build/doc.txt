@@ -6,3 +6,5 @@ sudo ln -s /opt/dotnet/dotnet /usr/local/bin
 dotnet publish -c release -r centos.7-x64
 
 Install-Package MySql.Data -Pre
+
+dotnet Coet.Server.dll
