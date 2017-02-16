@@ -48,6 +48,9 @@ namespace Coet.LogSDK
         {
             try
             {
+                Channel channel = new Channel(coetServerUrl, ChannelCredentials.Insecure);
+                var client = new CoetLog.CoetLogClient(channel);
+
                 if (_sendTimer == null)
                 {
                     _sendTimer = new Timer(new TimerCallback(async d =>
@@ -70,8 +73,6 @@ namespace Coet.LogSDK
 
                             if (sp.CoetLogInfos.Count > 0)
                             {
-                                Channel channel = new Channel(coetServerUrl, ChannelCredentials.Insecure);
-                                var client = new CoetLog.CoetLogClient(channel);
                                 int executeCount = 0;
                                 try
                                 {
@@ -79,7 +80,9 @@ namespace Coet.LogSDK
                                     executeCount = reply.ExecuteCount;
                                     Console.WriteLine(executeCount);
                                 }
-                                catch (Exception) { }
+                                catch (Exception)
+                                {
+                                }
 
                                 if (executeCount < sp.CoetLogInfos.Count)
                                 {
