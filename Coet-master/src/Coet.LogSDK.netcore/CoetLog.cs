@@ -82,6 +82,7 @@ namespace Coet.LogSDK
                                 }
                                 catch (Exception)
                                 {
+                                    channel.ShutdownAsync().Wait();
                                 }
 
                                 if (executeCount < sp.CoetLogInfos.Count)
